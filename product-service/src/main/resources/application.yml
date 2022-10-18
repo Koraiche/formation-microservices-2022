@@ -1,0 +1,40 @@
+
+server:
+  port: 7000
+spring:
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  application:
+    name: product-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/product_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password:
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+springdoc:
+  packages-to-scan:
+    - ma.s2m.nxp.controller
+swagger:
+  version: 1.0.0
+  title: TP_OMNISHORE_2
+  description: Ceci est une application du TP_OMNISHORE_2
+  contact-name: Fahd
+  contact-url: Fkoraiches2m.app.ma
+  contact-email: Fkoraiche@s2m.ma
+

@@ -1,0 +1,25 @@
+server:
+  port: 9101
+
+spring:
+  application:
+    name: configuration-server-service
+  cloud:
+    config:
+      server: # we have 2 strategies (from file in disk or from git repo),  to use git we only need git: & uri:, but
+      #when using a local file we need native: search-locations AND profiles: active: -native
+        #git:
+          #uri: https://github.com/Koraiche/formation-microservices-2022.git
+        native:
+          search-locations:
+            - file:///C:/workspace/TPs/formation-spring-cloud/config
+        bootstrap: true
+  profiles:
+    active:
+    - native
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

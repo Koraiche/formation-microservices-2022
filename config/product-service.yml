@@ -1,0 +1,39 @@
+
+server:
+  port: 7001
+
+keycloak:
+  realm: formation-ms
+  auth-server-url: http://localhost:8080/auth
+  resource: products-app
+  credentials:
+    secret: oCPJ5mmmA6O9dJc0SoqWIiSwfFuXF1WJ
+  principal-attribute: preferred_username
+  bearer-only: true
+
+spring:
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  application:
+    name: product-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/product_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password:
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+

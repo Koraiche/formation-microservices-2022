@@ -1,0 +1,56 @@
+server:
+  port: 9090
+
+keycloak:
+  realm: formation-ms
+  auth-server-url: http://localhost:8080/auth
+  resource: clients-app
+  credentials:
+    secret: b8nYyo7PYglSHLm9TUUf7ENcNlUwlV9S
+  principal-attribute: preferred_username
+  bearer-only: true
+
+spring:
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  application:
+    name: client-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/omnishore?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+springdoc:
+  packages-to-scan:
+    - ma.nxp.s2m.controller
+swagger:
+  version: 1.0.0
+  title: TP_OMNISHORE_2
+  description: Ceci est une application du TP_OMNISHORE_2
+  contact-name: Fahd
+  contact-url: Fkoraiches2m.app.ma
+  contact-email: Fkoraiche@s2m.ma
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create

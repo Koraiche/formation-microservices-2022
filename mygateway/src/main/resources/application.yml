@@ -1,0 +1,38 @@
+server:
+  port: 9999
+spring:
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: clients
+          uri: lb://client-service
+          predicates:
+            - Path=/client-service/**
+          filters:
+            - RewritePath=/client-service/(?<path>.*), /$\{path}
+        - id: sales
+          uri: lb://sales-service
+          predicates:
+            - Path=/sales-service/**
+          filters:
+            - RewritePath=/sales-service/(?<path>.*), /$\{path}
+        - id: products
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - RewritePath=/product-service/(?<path>.*), /$\{path}
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+

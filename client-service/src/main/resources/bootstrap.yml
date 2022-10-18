@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: client-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: configuration-server-service
+
